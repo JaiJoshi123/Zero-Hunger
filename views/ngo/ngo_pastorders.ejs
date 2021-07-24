@@ -1,0 +1,229 @@
+<% layout('layouts/dashboard')%>
+    <link rel="stylesheet" href="/css/stars.css">
+    <style>
+        .popup .overlay {
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+            display: none;
+        }
+
+        .popup .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: #fff;
+            width: 95%;
+            max-width: 500px;
+            height: 250px;
+            z-index: 2;
+            text-align: center;
+            padding: 0px;
+            box-sizing: border-box;
+            font-family: "Open Sans", sans-serif;
+        }
+
+        .popup .close-btn {
+            cursor: pointer;
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            width: 30px;
+            height: 30px;
+            background: #222;
+            color: #fff;
+            font-size: 25px;
+            font-weight: 600;
+            line-height: 30px;
+            text-align: center;
+            border-radius: 50%;
+        }
+
+        .popup.active .overlay {
+            display: block;
+        }
+
+        .popup.active .content {
+            transition: all 300ms ease-in-out;
+            transform: translate(-50%, -50%) scale(1);
+        }
+    </style>
+
+    <body>
+        <div class="pcoded-content">
+            <!-- Page-header start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <div class="page-header-title">
+                                <h4 class="m-b-10">Previous Orders</h4>
+                                <p class="m-b-0"><i>
+                                        <%=currentUser.ngo.name%>
+                                    </i></p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="index.html"> <i class="fa fa-home"></i> </a>
+                                </li>
+                                <li class="breadcrumb-item"><a href="#!">Previous Requests</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pcoded-inner-content">
+                <div class="main-body">
+                    <div class="page-wrapper">
+                        <div class="page-body">
+                            <div class="row">
+                                <% for(let d of donations) {%>
+                                    <% if(d.status=="Donated" ) {%>
+                                        <div class="col-md-6">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <img src="<%=d.img.url%>" width="250" height="250">
+                                                    <div height="4.5rem" width="4.5rem">
+                                                        <h4>
+                                                            <%=d.resto.resto.name%>
+                                                        </h4>
+                                                        <h5 class="text-muted m-b-0">
+                                                            <%=d.resto.resto.addr%>
+                                                        </h5>
+                                                    </div>
+                                                    <p class="text-muted m-b-0">Delivered</p>
+                                                </div>
+
+                                                <div class="card-block">
+                                                    <div class="card-text">
+                                                        <div class="card-block-small">
+                                                            <h5 class="text-muted m-b-0">Order Number</h5>
+                                                            <p class="text-muted m-b-0">
+                                                                <%=d._id%>
+                                                            </p>
+                                                        </div>
+                                                        <div class="card-block-small">
+                                                            <h5 class="text-muted m-b-0">Items</h5>
+                                                            <p class="text-muted m-b-0">
+                                                                <%=d.foodName%> , <%=d.food%>
+                                                            </p>
+                                                        </div>
+                                                        <div class="card-block-small">
+                                                            <h5 class="text-muted m-b-0">Received on</h5>
+                                                            <p class="text-muted m-b-0">
+                                                                <%=d.getRecTime%>
+                                                            </p>
+                                                        </div>
+                                                        <div class="card-block-small">
+                                                            <h5 class="text-muted m-b-0">Picked-up By</h5>
+                                                            <p class="text-muted m-b-0">
+                                                                <%=d.spoc%>
+                                                            </p>
+                                                        </div>
+                                                        <div class="card-block-small">
+                                                            <h5 class="text-muted m-b-0">Phone Number</h5>
+                                                            <p class="text-muted m-b-0">
+                                                                <%=d.spoc_no%>
+                                                            </p>
+                                                        </div>
+                                                        <% if(!d.review) {%>
+                                                        <div class="popup" id="<%=d._id%>">
+                                                            <div class="overlay"></div>
+                                                            <div class="content">
+
+                                                                <div class="close-btn"
+                                                                    onclick="togglePopup('<%=d._id%>')">×</div>
+                                                                <form action="/ngo/pastOrders" method="post">
+                                                                    <div class="row">
+                                                                        <input type="hidden" value="<%=d._id%>" name="id">
+
+                                                                        <div class="col-md-6 offset-4" style="margin-top: 5%">
+                                                                            <fieldset class="starability-heartbeat form-control">
+                                                                                <input type="radio" id="no-rate"
+                                                                                    class="input-no-rate"
+                                                                                    name="review[rating]" value="0"
+                                                                                    checked aria-label="No rating." required/>
+                                                                                <input type="radio" id="first-rate1"
+                                                                                    name="review[rating]" value="1" required/>
+                                                                                <label for="first-rate1"
+                                                                                    title="Terrible">1 star</label>
+                                                                                <input type="radio" id="first-rate2"
+                                                                                    name="review[rating]" value="2" required/>
+                                                                                <label for="first-rate2"
+                                                                                    title="Not good">2 stars</label>
+                                                                                <input type="radio" id="first-rate3"
+                                                                                    name="review[rating]" value="3" required/>
+                                                                                <label for="first-rate3"
+                                                                                    title="Average">3 stars</label>
+                                                                                <input type="radio" id="first-rate4"
+                                                                                    name="review[rating]" value="4" required/>
+                                                                                <label for="first-rate4"
+                                                                                    title="Very good">4 stars</label>
+                                                                                <input type="radio" id="first-rate5"
+                                                                                    name="review[rating]" value="5" required/>
+                                                                                <label for="first-rate5"
+                                                                                    title="Amazing">5 stars</label>
+                                                                            </fieldset>
+                                                                        </div>
+                                                                        <div class="col-md-6 offset-3 mb-3">
+                                                                            <input type="text" name="review[body]" placeholder="Enter review" class="form-control" required>
+                                                                        </div>
+                                                                        <div class="col-md-6 offset-3 mb-3">
+                                                                            <input type="number" name="review[count]" placeholder="Enter how many did it feed" class="form-control" required>
+                                                                        </div>
+                                                                
+                                                                        <div class="col-md-6 offset-3">
+                                                                            <button
+                                                                                class="btn btn-success">Submit</button>
+                                                                        </div>
+                                                                    </div>
+
+
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                        <button class="btn btn-success"
+                                                            onclick="togglePopup('<%=d._id%>')">Review</button>
+                                                        <%} else {%>
+                                                            <div class="card-block-small border rounded" >
+                                                                <h5 class="card-title text-muted m-b-0">
+                                                                    Review
+                                                                </h5>
+                                                                <p class="starability-result" data-rating="<%=d.review.rating%>">
+                                                                    Rated: <%=d.review.rating%> stars
+                                                                </p>
+                                                                <p class="card-text text-muted m-b-0">
+                                                                    Review: <%=d.review.body%>
+                                                                </p>
+                                                                <p class="card-text text-muted m-b-0">
+                                                                    Could feed :<%=d.review.count%> people
+                                                                </p>
+                                                            </div>
+                                                        <%}%>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <%}%>
+                                            <%}%>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            function togglePopup(id) {
+                document.getElementById(id).classList.toggle("active");
+            }
+        </script>
+    </body>

@@ -1,0 +1,113 @@
+
+<% layout('layouts/boilerplate')%>
+		<div id="fh5co-wrapper">
+		<div id="fh5co-page">
+		
+		
+		
+
+            <div class="fh5co-hero">
+                <div class="fh5co-overlay"></div>
+                <div class="fh5co-cover text-center" data-stellar-background-ratio="0.5" style="background-image: url(/images/cover_bg_2.jpg);">
+                    <div class="desc animate-box">
+                        <h2><strong>Donate</strong> for a good cause!</h2>
+                        <span><a class="btn btn-primary btn-lg" href="#fh5co-contact">Donate</a></span>
+                    </div>
+                </div>
+            </div>
+		<!-- end:header-top -->
+
+		
+        <div id="fh5co-contact" class="animate-box">
+			<div class="container">
+				<form action="/auth/register/resto" method="post">
+					<div class="row">
+						<div class="col-md-6 p-3">
+							<img style="width:90%;height:90%"src="https://images.unsplash.com/photo-1608686207856-001b95cf60ca?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8Y2hhcml0eXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60" alt="">
+						</div>
+						<div class="col-md-6">
+							<div class="col-md-12">
+                                <h1>Restaurant Registration</h1>
+                                <hr>
+                            </div>  
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input type="text" id="restoname" name="resto[name]" class="form-control" placeholder="Restaurant's Name">
+                                </div>
+                            </div>
+                        
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" id="licno" name="resto[fassaino]" class="form-control" placeholder="FSSAI License Number">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="email" id="email" name="email" class="form-control" placeholder="Email Id"> 
+                                </div>
+                            </div>
+                            
+                        
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input type="text" id="website" name="resto[website]" class="form-control" placeholder="Website Link">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input type="tel" id="phone" name="resto[phone]" class="form-control" placeholder="022-xxxx-xxxx" pattern="022[0-9]{4}[0-9]{4}"> 
+                                </div>
+                            </div>
+                            
+                
+                             <div class="col-md-12">
+                                 <div class="form-group">
+                                    <input type="text" id="add" name="resto[addr]" class="form-control" placeholder="Restaurant Address"><br>
+                                 </div>
+                             </div>
+                
+                         
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="city" id="" name="resto[city]" class="form-control" placeholder="City">                                            
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input list="foods" id="food" name="resto[food]" class="form-control" placeholder="Type Of Food Served">
+                                    <datalist id="foods">
+                                        <option value="Vegetarian">
+                                        <option value="Non-Vegetarian">
+                                        <option value="Both">
+                                      </datalist>                                    
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input type="password" id="password" name="password" class="form-control" placeholder="password"><br>
+
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <button class="btn btn-primary btn-lg">Register</button>
+                                </div>
+                            </div>
+                            
+							
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+	</div>
+	<!-- END fh5co-page -->
+
+	</div>
+	<!-- END fh5co-wrapper -->
+
+	<!-- jQuery -->
+
+
+

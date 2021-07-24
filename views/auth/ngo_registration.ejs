@@ -1,0 +1,108 @@
+<% layout('layouts/boilerplate')%>
+		<div id="fh5co-wrapper">
+		<div id="fh5co-page">
+		<div class="fh5co-hero">
+			<div class="fh5co-overlay"></div>
+			<div class="fh5co-cover text-center" data-stellar-background-ratio="0.5" style="background-image: url(/images/cover_bg_2.jpg);">
+				<div class="desc animate-box">
+					<h2><strong>Volunteer</strong> for a good cause!</h2>
+					<span><a class="btn btn-primary btn-lg" href="#fh5co-contact">Volunteer</a></span>
+				</div>
+			</div>
+		</div>
+		<!-- end:header-top -->
+        <div id="fh5co-contact" class="animate-box">
+			<div class="container">
+				<form action="/auth/register/ngo" method="post">
+					<div class="row">
+						<div class="col-md-6 p-3">
+							<img style="width:90%;height:90%"src="https://images.unsplash.com/photo-1580747872514-5139e7808ee2?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8bmdvfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60" alt="">
+						</div>
+						<div class="col-md-6">
+                                <div class="col-md-12">
+                                    <h1>N.G.O. Registration</h1>
+                                    <hr>
+                                </div>  
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <input type="text" id="restoname" name="ngo[name]" class="form-control" placeholder="Name of Registered Organisation">                                
+                                        </div>
+                                    </div>
+                                    
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input type="text" id="licno" name="ngo[licno]" class="form-control" placeholder="Registration Unique ID">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6" >
+                                            <div class="form-group">
+                                                <input type="email" id="email" name="email" class="form-control" placeholder="Email Id"> 
+                                            </div>
+                                        </div>
+                                    
+                                    
+                                    
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <input type="text" id="website" name="ngo[website]" class="form-control" placeholder="Website Link">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="tel" id="phone" name="ngo[phone]" class="form-control" placeholder="+91-xxxx-xxxx" pattern="[0-9]{10}">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="text" id="add" name="ngo[addr]" class="form-control" placeholder="Head Office Adress">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <input type="text" id="city" name="ngo[city]" class="form-control" placeholder="City">
+
+                                        </div>
+                                    </div>
+                                    
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input type="text" id="ppoc" name="ngo[ppoc]" class="form-control" placeholder="Primary Point of Contact">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <input type="tel" id="ppoc" name="ngo[ppoc_no]" class="form-control" placeholder="+91-xxxxx-xxxxx" pattern="[0-9]{10}" required> 
+                                            </div>
+                                        </div>
+                                    
+                                    
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" name="password" placeholder="Enter strong password">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <button class="btn btn-primary">Register</button>
+                                        </div>
+                                    </div>
+                                
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		
+	
+
+	</div>
+	<!-- END fh5co-page -->
+
+	</div>
+	<!-- END fh5co-wrapper -->
+
+	<!-- jQuery -->
+

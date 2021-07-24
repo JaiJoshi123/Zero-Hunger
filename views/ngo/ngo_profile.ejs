@@ -1,0 +1,95 @@
+<% layout('layouts/dashboard')%>
+                    <div class="pcoded-content">
+    <!--Start here-->    <!-- Page-header start -->
+                        <div class="page-header">
+                            <div class="page-block">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8">
+                                        <div class="page-header-title">
+                                            <h5 class="m-b-10">Profile</h5>
+                                            <p class="m-b-0"><%=currentUser.ngo.name%></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <ul class="breadcrumb">
+                                            <li class="breadcrumb-item">
+                                                <a href="index.html"> <i class="fa fa-home"></i> </a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="#!">NGO Profile</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Page-header end -->
+                        <div class="pcoded-inner-content">
+                            <!-- Main-body start -->
+                            <div class="main-body">
+                                <div class="page-wrapper">
+                                    <!-- Page-body start -->
+                                    <div class="page-body">
+                                        <div class="row"> 
+                                            <!-- Material statustic card start -->
+                                            <div class="col-xl-4 col-l-4 col-md-6 col-sm-12">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>NGO Name</h5>
+                                                    </div>
+                                                    <div class="card-block">
+                                                    <span><%=currentUser.ngo.name%></span>
+                                                </div>
+                                            </div>
+                                            <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>Email</h5>
+                                                    </div>
+                                                    <div class="card-block">
+                                                    <span><%=currentUser.email%></span>
+                                                </div>
+                                            </div>
+                                            <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>Primary Contact Number</h5>
+                                                    </div>
+                                                    <div class="card-block">
+                                                    <span><%=currentUser.ngo.phone%></span>
+                                                </div>
+                                            </div>
+                                            <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>Adress</h5>
+                                                    </div>
+                                                    <div class="card-block">
+                                                    <span><%=currentUser.ngo.addr%></span>
+                                                </div>
+                                            </div>
+                                            <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>City</h5>
+                                                    </div>
+                                                    <div class="card-block">
+                                                    <span>Mumbai</span>
+                                                </div>
+                                            </div>
+                                            <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>Pincode</h5>
+                                                    </div>
+                                                    <div class="card-block">
+                                                    <span>400104</span>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+
+
+            
+  

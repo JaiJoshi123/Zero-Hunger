@@ -1,0 +1,168 @@
+<% layout('layouts/dashboard')%>
+<link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+<link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
+
+<!-------------------------------------------START EDITING FROM HERE------->
+                    <div class="pcoded-content">
+                        <!-- Page-header start -->
+                        <div class="page-header">
+                            <div class="page-block">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8">
+                                        <div class="page-header-title">
+                                            <h4 class="m-b-10">New Request</h4>
+                                            <p class="m-b-0"><i><%=currentUser.resto.name%></i></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <ul class="breadcrumb">
+                                            <li class="breadcrumb-item">
+                                                <a href="index.html"> <i class="fa fa-home"></i> </a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="#!">New Request</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="pcoded-inner-content">
+                        <div class="main-body">
+                            <div class="page-wrapper">
+                                <div class="page-body">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                         <div height="4.5rem" width="4.5rem" >
+                                            <h4 >Restaurant Name</h4>
+                                            <h5 class="text-muted m-b-0">Location</h5>
+                                         </div>
+                                        <p class="text-c-green m-l-10">Status: Donation Available</p>
+                                        </div>
+            
+                                        <div class="card-block">
+                                            <form class="form-material"  action="/resto/addDonation" method="post" enctype="multipart/form-data">
+                                            <div class="card-text" id="divadd">
+                                                <div class="card-block-small">
+                                                    <div class="form-group">
+                                                        <h5 class="text-muted m-b-0">Type of Food     </h5>
+                                                        <input class="form-control" list="foods" id="food" name="donation[food]"  >
+                                                        <datalist id="foods">
+                                                            <option value="Vegetarian">
+                                                            <option value="Non-Vegetarian">
+                                                            <option value="Both">
+                                                          </datalist>                                    
+                                                    </div>
+                                                </div>
+                                                
+                                                <div class="card-block-small">
+                                                    <h5 class="text-muted m-b-0">Quantity (Kg)</h5>
+                                                    <input class="form-control" type="number" id="food" name="donation[quantity]">
+                                                </div>
+                                                
+                                                <div class="card-block-small">
+                                                    <h5 class="text-muted m-b-0">Donation Put Up At</h5>
+                                                    <p class="text-muted m-b-0" id="calender-input">
+                                                    
+                                                    </p>
+                                                </div> 
+
+                                                 
+                                                <div class="card-block-small">
+                                                    <h5 class="text-muted m-b-0">Food Available for</h5>
+                                                    <p class="text-muted m-b-0">24 more hours</p>
+                                                </div>
+                                                <!------------------------UPLOADING IMAGE------------------------------->
+                                                <!--
+                                                <div class="card-block-small">
+                                                    <input id="image-selector" class="form-control border-0" type="file" name="image">
+                                                </div>
+                                                -->
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                      <span class="input-group-text">Upload</span>
+                                                    </div>
+                                                    <div class="custom-file">
+                                                      <input type="file" class="custom-file-input" id="image-selector" name="image">
+                                                      <label class="custom-file-label" for="image-selector">Choose file</label>
+                                                    </div>
+                                                  </div>
+                                                  
+                                                <div class="card-block-small">
+                                                    <h2 class="text-muted m-b-0">Image</h2>
+                                                    <img id="selected-image" class="ml-3" width="250" alt=""> 
+                                                </div>
+                                                <div class="card-block-small">
+                                                
+                                                        <a id="predict-button" class="btn btn-primary">Predict</a>
+                                                    
+                                                    <h3 id="prediction" ></h3>
+                                                    <input type="hidden" name="donation[foodName]" id="foodname" >
+                                                </div>
+                                                <button class="btn btn-success waves-effect waves-light" id="buttonAdd">Put Up Donation</button>
+                                            </div>
+                                        </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!---row 2 over now-->
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.2.7/dist/tf.min.js"></script>
+
+<script src="/target_classes.js"></script>
+<script src="/predict.js"></script> 
+<script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
+<script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
+
+<!-- image editor -->
+<script src="https://unpkg.com/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.js"></script>
+<script src="https://unpkg.com/filepond-plugin-image-crop/dist/filepond-plugin-image-crop.js"></script>
+<script src="https://unpkg.com/filepond-plugin-image-filter/dist/filepond-plugin-image-filter.js"></script>
+<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+<script src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
+<script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+<script>
+    // register desired plugins...
+	FilePond.registerPlugin(
+        // validates the size of the file...
+        FilePondPluginFileValidateSize,
+        // validates the file type...
+        FilePondPluginFileValidateType,
+        FilePondPluginImagePreview,
+        
+    );
+    
+    // Filepond: Image Preview
+    FilePond.create( document.querySelector('.image-preview-filepond'), { 
+        allowImagePreview: true, 
+        allowImageFilter: false,
+        allowImageExifOrientation: false,
+        allowImageCrop: false,
+        acceptedFileTypes: ['image/png','image/jpg','image/jpeg'],
+        fileValidateTypeDetectType: (source, type) => new Promise((resolve, reject) => {
+            // Do custom type detection here and return with promise
+            resolve(type);
+        })
+    });
+    const p = document.querySelector('#calender-input')
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    const h= String(today.getHours())
+    const m= String(today.getMinutes())
+    today = dd + '/' + mm + '/' + yyyy + '    Time: ' + h+':'+m;
+    p.innerText = today
+</script>

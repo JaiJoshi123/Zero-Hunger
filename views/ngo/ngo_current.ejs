@@ -1,0 +1,269 @@
+<% layout('layouts/dashboard')%>
+                    <!-------------------------------------------START EDITING FROM HERE------->
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v2.2.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        
+
+        #map {
+            position: absolute;
+            
+            width: 95%;
+            height: 50%;
+        }
+
+        
+        
+    </style>                
+    <div class="pcoded-content">
+                        <!-- Page-header start -->
+                        <div class="page-header">
+                            <div class="page-block">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8">
+                                        <div class="page-header-title">
+                                            <h5 class="m-b-10">Current Request</h5>
+                                            <p class="m-b-0"><i><%=currentUser.ngo.name%></i></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <ul class="breadcrumb">
+                                            <li class="breadcrumb-item">
+                                                <a href="index.html"> <i class="fa fa-home"></i> </a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="#!">Current Request</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Page-header end -->
+                        
+                        <% if(currentUser.isAccepted == "yes") {%>
+                        <div class="pcoded-inner-content">
+                            <!-- Main-body start -->
+                            <div class="main-body">
+                                <div class="page-wrapper">
+                                    <!-- Page-body start -->
+                                    <div class="page-body">
+                                        <div class="row">
+                                            <div class="col-xl-12">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <img src="<%=donation.img.url%>" width="250" height="250">
+                                                     <div height="4.5rem" width="4.5rem" >
+                                                        <h4 ><%=donation.resto.resto.name%></h4>
+                                                        <h5 class="text-muted m-b-0"><%=donation.resto.resto.city%></h5>
+                                                     </div>
+                                                    <p class="text-c-red m-l-10">To Be Picked-up</p>
+                                                    </div>
+
+                                                    <div class="card-block">
+                                                        <div id='map'></div>
+                                                        
+                                                    </div>
+                                                    
+                        
+                                                    <div class="card-block" style="margin-top: 75%">
+                                                        <div class="card-text"> 
+                                                            <div class="card-block-small">
+                                                                <h5 class="text-muted m-b-0">Order Number</h5>
+                                                                <p class="text-muted m-b-0"><%=donation._id%></p>
+                                                            </div>
+                                                            <div class="card-block-small">
+                                                                <h5 class="text-muted m-b-0">Items</h5>
+                                                                <p class="text-muted m-b-0"><%=donation.foodName%></p>
+                                                            </div>
+                                                            <div class="card-block-small">
+                                                                <h5 class="text-muted m-b-0">To be Picked-up By</h5>
+                                                                <p class="text-muted m-b-0"><%=donation.spoc%></p>
+                                                            </div>
+                                                            <div class="card-block-small">
+                                                                <h5 class="text-muted m-b-0">Phone Number</h5>
+                                                                <p class="text-muted m-b-0"><%=donation.spoc_no%></p>
+                                                            </div>
+                                                            <div class="card-block-small">
+                                                                <h5 class="text-muted m-b-0">Available Till</h5>
+                                                                <p class="text-muted m-b-0"><%=donation.getAvailTime%></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-----ending row here-->
+                                        </div>
+                                    </div>
+                                    <!-- Page-body end -->
+                                </div>
+                                <div id="styleSelector"> </div>
+                            </div>
+                        </div>
+                        <%}%>
+                    </div>
+                    <script>
+                        // add the JavaScript here
+                        const donation = <%-JSON.stringify(donation)%>;
+                        const ngoC = donation.ngo.geometry.coordinates;
+                        const restoC = donation.resto.geometry.coordinates;
+                        mapboxgl.accessToken = 'pk.eyJ1IjoiamFpam9zaGkiLCJhIjoiY2tqNW03eHEyMDU2NzJ1bXQ1dXA4dzQydSJ9.DVT4T1SbwdPDaWHiRaNqoQ';
+                        var map = new mapboxgl.Map({
+                            container: 'map',
+                            style: 'mapbox://styles/mapbox/streets-v10',
+                            center: [(ngoC[0]+restoC[0])/2, (ngoC[1]+restoC[1])/2], // starting position
+                            zoom: 12
+                        });
+                        // set the bounds of the map
+                        
+                
+                        // initialize the map canvas to interact with later
+                        var canvas = map.getCanvasContainer();
+                
+                        // an arbitrary start will always be the same
+                        // only the end or destination will change
+                        var start = ngoC;
+                        var coords = restoC;
+                        console.log(start)
+                        console.log(coords)
+                        // this is where the code for the next step will go
+                        // create a function to make a directions request
+                        function getRoute(end) {
+                            // make a directions request using cycling profile
+                            // an arbitrary start will always be the same
+                            // only the end or destination will change
+                            
+                            var url = 'https://api.mapbox.com/directions/v5/mapbox/driving/' + start[0] + ',' + start[1] + ';' + end[0] + ',' + end[1] + '?steps=true&geometries=geojson&access_token=' + mapboxgl.accessToken;
+                
+                            // make an XHR request https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest
+                            var req = new XMLHttpRequest();
+                            req.open('GET', url, true);
+                            req.onload = function () {
+                                var json = JSON.parse(req.response);
+                                var data = json.routes[0];
+                                var route = data.geometry.coordinates;
+                                var geojson = {
+                                    type: 'Feature',
+                                    properties: {},
+                                    geometry: {
+                                        type: 'LineString',
+                                        coordinates: route
+                                    }
+                                };
+                                // if the route already exists on the map, reset it using setData
+                                if (map.getSource('route')) {
+                                    map.getSource('route').setData(geojson);
+                                } else { // otherwise, make a new request
+                                    map.addLayer({
+                                        id: 'route',
+                                        type: 'line',
+                                        source: {
+                                            type: 'geojson',
+                                            data: {
+                                                type: 'Feature',
+                                                properties: {},
+                                                geometry: {
+                                                    type: 'LineString',
+                                                    coordinates: geojson
+                                                }
+                                            }
+                                        },
+                                        layout: {
+                                            'line-join': 'round',
+                                            'line-cap': 'round'
+                                        },
+                                        paint: {
+                                            'line-color': '#3887be',
+                                            'line-width': 5,
+                                            'line-opacity': 0.75
+                                        }
+                                    });
+                                }
+                                // add turn instructions here at the end
+                                // get the sidebar and add the instructions
+                                var instructions = document.getElementById('instructions');
+                                var steps = data.legs[0].steps;
+                
+                                var tripInstructions = [];
+                                for (var i = 0; i < steps.length; i++) {
+                                    tripInstructions.push('<br><li>' + steps[i].maneuver.instruction) + '</li>';
+                                    instructions.innerHTML = '<br><span class="duration">Trip duration: ' + Math.floor(data.duration / 60) + ' min 🚴 </span>' + tripInstructions;
+                                }
+                            };
+                            req.send();
+                        }
+                
+                        map.on('load', function () {
+                            // make an initial directions request that
+                            // starts and ends at the same location
+                            getRoute(start);
+                
+                            // Add starting point to the map
+                            map.addLayer({
+                                id: 'point',
+                                type: 'circle',
+                                source: {
+                                    type: 'geojson',
+                                    data: {
+                                        type: 'FeatureCollection',
+                                        features: [{
+                                            type: 'Feature',
+                                            properties: {},
+                                            geometry: {
+                                                type: 'Point',
+                                                coordinates: start
+                                            }
+                                        }
+                                        ]
+                                    }
+                                },
+                                paint: {
+                                    'circle-radius': 10,
+                                    'circle-color': '#3887be'
+                                }
+                            });
+                            // this is where the code from the next step will go
+                                var end = {
+                                    type: 'FeatureCollection',
+                                    features: [{
+                                        type: 'Feature',
+                                        properties: {},
+                                        geometry: {
+                                            type: 'Point',
+                                            coordinates: coords
+                                        }
+                                    }
+                                    ]
+                                };
+                                if (map.getLayer('end')) {
+                                    map.getSource('end').setData(end);
+                                } else {
+                                    map.addLayer({
+                                        id: 'end',
+                                        type: 'circle',
+                                        source: {
+                                            type: 'geojson',
+                                            data: {
+                                                type: 'FeatureCollection',
+                                                features: [{
+                                                    type: 'Feature',
+                                                    properties: {},
+                                                    geometry: {
+                                                        type: 'Point',
+                                                        coordinates: coords
+                                                    }
+                                                }]
+                                            }
+                                        },
+                                        paint: {
+                                            'circle-radius': 10,
+                                            'circle-color': '#f30'
+                                        }
+                                    });
+                                }
+                                getRoute(coords);
+                            
+                
+                        });
+                
+                
+                    </script>      

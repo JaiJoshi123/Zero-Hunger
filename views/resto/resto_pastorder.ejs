@@ -1,0 +1,104 @@
+<% layout('layouts/dashboard')%>
+<link rel="stylesheet" href="/css/stars.css">
+<body>
+<div class="pcoded-content">
+    <!-- Page-header start -->
+    <div class="page-header">
+        <div class="page-block">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <div class="page-header-title">
+                        <h5 class="m-b-10">Previous Donations</h5>
+                        <p class="m-b-0"><i><%=currentUser.resto.name%></i></p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="index.html"> <i class="fa fa-home"></i> </a>
+                        </li>
+                        <li class="breadcrumb-item"><a href="#!">Previous Donations</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page-header end -->
+    <div class="pcoded-inner-content">
+        <!-- Main-body start -->
+        <div class="main-body">
+            <div class="page-wrapper">
+                <!-- Page-body start -->
+                <div class="page-body">
+                    <div class="row">
+                        
+                        <% for(let d of donations) {%>
+                            <% if(d.status=="Donated") {%>
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <img src="<%=d.img.url%>" width="250" height="250">
+                                     <div height="4.5rem" width="4.5rem" >
+                                        <h4><%=d.ngo.ngo.name%></h4>
+                                        <h5 class="text-muted m-b-0"><%=d.resto.resto.addr%></h5>
+                                     </div>
+                                    <p class="text-muted m-b-0"><%=d.status%></p>
+                                    </div>
+                
+                                    <div class="card-block">
+                                        <div class="card-text">
+                                            <div class="card-block-small">
+                                                <h5 class="text-muted m-b-0">Order Number</h5>
+                                                <p class="text-muted m-b-0"><%=d._id%></p>
+                                            </div>
+                                            <div class="card-block-small">
+                                                <h5 class="text-muted m-b-0">Items</h5>
+                                                <p class="text-muted m-b-0"><%=d.foodName%> , <%=d.food%></p>
+                                            </div>
+                                            <div class="card-block-small">
+                                                <h5 class="text-muted m-b-0">Received on</h5>
+                                                <p class="text-muted m-b-0"><%=d.getRecTime%></p>
+                                            </div>  
+                                            <div class="card-block-small">
+                                                <h5 class="text-muted m-b-0">Picked-up By</h5>
+                                                <p class="text-muted m-b-0"><%=d.spoc%></p>
+                                            </div>
+                                            <div class="card-block-small">
+                                                <h5 class="text-muted m-b-0">Phone Number</h5>
+                                                <p class="text-muted m-b-0"><%=d.spoc_no%></p>
+                                            </div>
+                                            <%if(d.review) {%>
+                                            <div class="card-block-small border rounded" >
+                                                <h5 class="card-title text-muted m-b-0">
+                                                    Review
+                                                </h5>
+                                                <p class="starability-result" data-rating="<%=d.review.rating%>">
+                                                    Rated: <%=d.review.rating%> stars
+                                                </p>
+                                                <p class="card-text text-muted m-b-0">
+                                                    Review: <%=d.review.body%>
+                                                </p>
+                                                <p class="card-text text-muted m-b-0">
+                                                    Could feed :<%=d.review.count%> people
+                                                </p>
+                                            </div>
+                                            <%}%>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <%}%>
+                            <%}%>
+
+                        
+                        <!-----ending row here-->
+                    </div>
+                </div>
+                <!-- Page-body end -->
+            </div>
+            <div id="styleSelector"> </div>
+        </div>
+    </div>
+</div>
+</body>

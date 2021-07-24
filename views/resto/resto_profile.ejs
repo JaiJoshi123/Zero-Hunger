@@ -1,0 +1,122 @@
+<% layout('layouts/dashboard')%>
+<link rel="stylesheet" href="/css/stars.css">
+<div class="pcoded-content">
+    <!--Start here-->    <!-- Page-header start -->
+                        <div class="page-header">
+                            <div class="page-block">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8">
+                                        <div class="page-header-title">
+                                            <h5 class="m-b-10">Profile</h5>
+                                            <p class="m-b-0"><%=currentUser.resto.name%></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <ul class="breadcrumb">
+                                            <li class="breadcrumb-item">
+                                                <a href="index.html"> <i class="fa fa-home"></i> </a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="#!">Restaurant Profile</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Page-header end -->
+                        <div class="pcoded-inner-content">
+                            <!-- Main-body start -->
+                            <div class="main-body">
+                                <div class="page-wrapper">
+                                    <!-- Page-body start -->
+                                    <div class="page-body">
+                                        <div class="row"> 
+                                            <!-- Material statustic card start -->
+                                            <div class="col-xl-4 col-l-4 col-md-6 col-sm-12">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>Restaurant Name</h5>
+                                                    </div>
+                                                    <div class="card-block">
+                                                        <span><%=currentUser.resto.name%></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4 col-l-4 col-md-6 col-sm-12">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>Email</h5>
+                                                    </div>
+                                                    <div class="card-block">
+                                                        <span><%=currentUser.email%></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4 col-l-4 col-md-6 col-sm-12">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>Contact Number</h5>
+                                                    </div>
+                                                    <div class="card-block">
+                                                        <span><%=currentUser.resto.phone%></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4 col-l-4 col-md-6 col-sm-12">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>Adress</h5>
+                                                    </div>
+                                                    <div class="card-block">
+                                                        <span><%=currentUser.resto.addr%></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4 col-l-4 col-md-6 col-sm-12">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>City</h5>
+                                                    </div>
+                                                    <div class="card-block">
+                                                        <span><%=currentUser.resto.city%></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4 col-l-4 col-md-6 col-sm-12">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>Pincode</h5>
+                                                    </div>
+                                                    <div class="card-block">
+                                                        <span>400097</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4 col-l-4 col-md-6 col-sm-12">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>Total Donations</h5>
+                                                    </div>
+                                                    <div class="card-block">
+                                                        <span><%=count%></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-4 col-l-4 col-md-6 col-sm-12">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h5>Rating</h5>
+                                                    </div>
+                                                    <p class="starability-result" data-rating="<%=currentUser.resto.rating%>">
+                                                        Rated: <%=currentUser.resto.rating%> stars
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                

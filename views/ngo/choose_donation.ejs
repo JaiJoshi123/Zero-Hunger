@@ -1,0 +1,283 @@
+<% layout('layouts/dashboard')%>
+
+    <!-------------------------------------------START EDITING FROM HERE------->
+    <style>
+        .popup .overlay {
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1;
+            display: none;
+        }
+
+        .popup .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: #fff;
+            width: 95%;
+            max-width: 500px;
+            height: 250px;
+            z-index: 2;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+            font-family: "Open Sans", sans-serif;
+        }
+
+        .popup .close-btn {
+            cursor: pointer;
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            width: 30px;
+            height: 30px;
+            background: #222;
+            color: #fff;
+            font-size: 25px;
+            font-weight: 600;
+            line-height: 30px;
+            text-align: center;
+            border-radius: 50%;
+        }
+
+        .popup.active .overlay {
+            display: block;
+        }
+
+        .popup.active .content {
+            transition: all 300ms ease-in-out;
+            transform: translate(-50%, -50%) scale(1);
+        }
+    </style>
+    <div class="pcoded-content">
+        <!-- Page-header start -->
+        <div class="page-header">
+            <div class="page-block">
+                <div class="row align-items-center">
+                    <div class="col-md-8">
+                        <div class="page-header-title">
+                            <h5 class="m-b-10">Accept Donations</h5>
+                            <p class="m-b-0"><i>
+                                    <%=currentUser.ngo.name%>
+                                </i></p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="index.html"> <i class="fa fa-home"></i> </a>
+                            </li>
+                            <li class="breadcrumb-item"><a href="#!">Accept Donations</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Page-header end -->
+        <div class="pcoded-inner-content">
+            <!-- Main-body start -->
+            <div class="main-body">
+                <div class="page-wrapper">
+                    <!-- Page-body start -->
+                    <div class="page-body">
+                        <div class="row">
+                            <% for(let d of donations) { %>
+                                <% if(d.status==="Available" ) {%>
+                                    <div class="col-md-6">
+                                        <div class="card">
+                                            <div class="card-header">
+                                                <div style="width: 100%;margin: 10px">
+                                        <span id="O<%=d._id%>" class="btn btn-success ">TIMER</span>
+                                                </div>
+                                                <img src="<%=d.img.url%>" width="250" height="250">
+                                                <div height="4.5rem" width="4.5rem">
+                                                    <h4>
+                                                        <%=d.resto.resto.name%>
+                                                    </h4>
+                                                    <h5 class="text-muted m-b-0">
+                                                        <%=d.resto.resto.addr%>
+                                                    </h5>
+                                                </div>
+                                                <p class="text-c-green m-l-10">
+                                                    <%=d.status%>
+                                                </p>
+                                            </div>
+
+                                            <div class="card-block">
+                                                <div class="card-text">
+                                                    <div class="card-block-small">
+                                                        <h5 class="text-muted m-b-0">Items</h5>
+                                                        <p class="text-muted m-b-0">
+                                                            <%=d.foodName%> , <%=d.food%>
+                                                        </p>
+                                                    </div>
+                                                    <div class="card-block-small">
+                                                        <h5 class="text-muted m-b-0">Uploaded At</h5>
+                                                        <p class="text-muted m-b-0">
+                                                            <%=d.getUploadTime%>
+                                                        </p>
+                                                    </div>
+                                                    <div class="card-block-small">
+                                                        <h5 class="text-muted m-b-0">Available till</h5>
+                                                        <p class="text-muted m-b-0">
+                                                            <%=d.getAvailTime%>
+                                                        </p>
+                                                    </div>
+                                                    <div class="card-block-small">
+                                                        <h5 class="text-muted m-b-0">Can Feed Upto</h5>
+                                                        <p class="text-muted m-b-0">10 people </p>
+                                                    </div>
+
+
+                                                    <% if(currentUser.isAccepted==="no") {%>
+                                                        <div class="popup" id="<%=d._id%>">
+                                                            <div class="overlay"></div>
+                                                            <div class="content">
+
+                                                                <div class="close-btn"
+                                                                    onclick="togglePopup('<%=d._id%>')">×</div>
+                                                                <form action="/ngo/donations" method="post">
+                                                                    <input type="hidden" value="<%=d._id%>" name="id">
+                                                                    <div class="row">
+                                                                        <div class="col-md-6 offset-3 mb-3"
+                                                                            style="margin-top: 10%">
+                                                                            <input type="text" name="ngo[spoc]"
+                                                                                class="form-control"
+                                                                                placeholder="Enter P.O.C. name">
+                                                                        </div>
+                                                                        <div class="col-md-6 offset-3 mb-3">
+                                                                            <input type="tel" id="phone"
+                                                                                name="ngo[spoc_no]" class="form-control"
+                                                                                placeholder="+91-xxxx-xxxx"
+                                                                                pattern="[0-9]{10}">
+                                                                        </div>
+                                                                        <div class="col-md-6 offset-3">
+                                                                            <button
+                                                                                class="btn btn-success waves-effect waves-light">Accept
+                                                                                Donation</button>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                        <button class="btn btn-success"
+                                                            onclick="togglePopup('<%=d._id%>')">Accept</button>
+                                                        <%} else {%>
+                                                            <Span class="btn btn-danger waves-effect waves-light">Cannot
+                                                                Accept</Span>
+                                                            <%}%>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <%}%>
+                                        <%}%>
+                                            <div class="col-md-6">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <div style="width: 100%;margin: 10px">
+                                                            <span class="btn btn-danger ">EXPIRED</span>
+                                                        </div>
+                                                        <img src="data:image/jpeg;base64,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"
+                                                            width="250" height="250">
+                                                        <div height="4.5rem" width="4.5rem">
+                                                            <h4>
+                                                                BBQ Nation
+                                                            </h4>
+                                                            <h5 class="text-muted m-b-0">
+                                                                Andheri
+                                                            </h5>
+                                                        </div>
+                                                        <p class="text-c-green m-l-10">
+                                                            EXPIRED
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="card-block">
+                                                        <div class="card-text">
+                                                            <div class="card-block-small">
+                                                                <h5 class="text-muted m-b-0">Items</h5>
+                                                                <p class="text-muted m-b-0">
+                                                                    Chappati , Vegetarian
+                                                                </p>
+                                                            </div>
+                                                            <div class="card-block-small">
+                                                                <h5 class="text-muted m-b-0">Uploaded At</h5>
+                                                                <p class="text-muted m-b-0">
+                                                                    June 2, 2021, 16:00 PM
+                                                                </p>
+                                                            </div>
+                                                            <div class="card-block-small">
+                                                                <h5 class="text-muted m-b-0">Available till</h5>
+                                                                <p class="text-muted m-b-0">
+                                                                    June 3, 2021, 16:00 PM
+                                                                </p>
+                                                            </div>
+                                                            <div class="card-block-small">
+                                                                <h5 class="text-muted m-b-0">Can Feed Upto</h5>
+                                                                <p class="text-muted m-b-0">10 people </p>
+                                                            </div>
+
+
+
+                                                            <Span class="btn btn-danger waves-effect waves-light">Cannot
+                                                                Accept</Span>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-----ending row here-->
+                        </div>
+                    </div>
+                    <!-- Page-body end -->
+                </div>
+                <div id="styleSelector"> </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function togglePopup(id) {
+            document.getElementById(id).classList.toggle("active");
+        }
+        const donations = <%- JSON.stringify(donations) %>;
+        var x = setInterval(function () {
+            for (let d of donations) {
+                if (d.status == "Available") {
+                    // Get today's date and time
+                    var end = new Date(d.availTill).getTime();
+                    var now = new Date().getTime();
+                    // Find the distance between now and the count down date
+                    var distance = end - now
+
+                    // Time calculations for days, hours, minutes and seconds
+                    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    // Display the result in the element with id="demo"
+                    document.getElementById(`O${d._id}`).innerText = days + "d " + hours + "h "
+                        + minutes + "m " + seconds + "s ";
+
+                    // If the count down is finished, write some text
+                    if (distance < 0) {
+                        clearInterval(x);
+                        document.getElementById(`O${d._id}`).innerHTML = "EXPIRED";
+                    }
+                }
+            }
+        }, 1000);
+
+    </script>
